@@ -20,7 +20,7 @@ const Header = ({ title = "AI Property Assistant" }) => {
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-4 sm:px-6 shadow-lg relative z-50"
+      className="bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] text-white py-4 px-4 sm:px-6 shadow-lg relative z-50"
     >
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo and Title */}
@@ -82,7 +82,7 @@ const Header = ({ title = "AI Property Assistant" }) => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="sm:hidden bg-indigo-700 shadow-lg overflow-hidden"
+            className="sm:hidden bg--700 shadow-lg overflow-hidden"
           >
             <div className="p-4 flex flex-col gap-3">
               <motion.button

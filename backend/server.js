@@ -14,18 +14,18 @@ import appointmentRouter from './routes/appointmentRoute.js';
 import adminRouter from './routes/adminRoute.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import adminProperties from './routes/adminProperties.js';
-
-import path from "path";
-import { fileURLToPath } from "url";
-
-// Manually define __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+import luckyrouter from './routes/luckydrawRoutes.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
 const app = express();
+
+// Get directory paths
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Rate limiting to prevent abuse
 const limiter = rateLimit({
@@ -38,7 +38,17 @@ const limiter = rateLimit({
 
 // Security middlewares
 app.use(limiter);
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "blob:"],
+      connectSrc: ["'self'", ...process.env.ALLOWED_ORIGINS?.split(',') || []]
+    }
+  }
+}));
 app.use(compression());
 
 // Middleware
@@ -46,21 +56,20 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(trackAPIStats);
 
-
 // CORS Configuration
-// app.use(cors({
-//   origin: [
-//     'http://localhost:4000',
-//     'http://localhost:5174',
-//     'http://localhost:5173',
-//     'https://buildestate.vercel.app',
-//     'https://real-estate-website-admin.onrender.com',
-//     'https://real-estate-website-backend-zfu7.onrender.com',
-//   ],
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'], // Added HEAD
-//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-// }));
+app.use(cors({
+  origin: [
+    'http://localhost:4000',
+    'http://localhost:5174',
+    'http://localhost:5173',
+    'https://Hybrid Realty.vercel.app',
+    'https://real-estate-website-admin.onrender.com',
+    'https://real-estate-website-backend-zfu7.onrender.com',
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
 
 // Database connection
 connectdb().then(() => {
@@ -69,6 +78,11 @@ connectdb().then(() => {
   console.error('Database connection error:', err);
 });
 
+// Create a temporary directory for file exports if it doesn't exist
+const tempDir = path.join(__dirname, 'temp');
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir);
+}
 
 // API Routes
 app.use('/api/products', propertyrouter);
@@ -79,10 +93,20 @@ app.use('/api/appointments', appointmentRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/properties', adminProperties);
 app.use('/api', propertyRoutes);
+app.use('/api', luckyrouter); // Add lucky draw routes
 
+// Status check endpoint
+app.get('/api/status', (req, res) => {
+  res.status(200).json({ status: 'OK', time: new Date().toISOString() });
+});
 
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
+// Serve static files from frontend builds
+app.use('/admin', express.static(path.join(__dirname, 'admin_dist')));
+app.use(express.static(path.join(__dirname, 'user_dist')));
+
+// Handle API errors
+app.use('/api', (err, req, res, next) => {
+  console.error('API Error:', err);
   const statusCode = err.status || 500;
   res.status(statusCode).json({
     success: false,
@@ -93,6 +117,15 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Route handler for admin frontend
+app.get('/admin/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin_dist', 'index.html'));
+});
+
+// Route handler for user frontend - must be the last route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'user_dist', 'index.html'));
+});
 
 // Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
@@ -101,82 +134,14 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-// Status check endpoint
-app.get('/status', (req, res) => {
-  res.status(200).json({ status: 'OK', time: new Date().toISOString() });
-});
-
-// Root endpoint - health check HTML
-// app.get("/", (req, res) => {
-//   res.send(`
-//     <!DOCTYPE html>
-//     <html lang="en">
-//       <head>
-//         <meta charset="UTF-8">
-//         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//         <title>BuildEstate API Status</title>
-//         <style>
-//           body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
-//           .container { background: #f9fafb; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-//           h1 { color: #2563eb; }
-//           .status { color: #16a34a; font-weight: bold; }
-//           .info { margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
-//           .footer { margin-top: 30px; font-size: 0.9rem; color: #6b7280; text-align: center; }
-//         </style>
-//       </head>
-//       <body>
-//         <div class="container">
-//           <h1>BuildEstate API</h1>
-//           <p>Status: <span class="status">Online</span></p>
-//           <p>Server Time: ${new Date().toLocaleString()}</p>
-          
-//           <div class="info">
-//             <p>The BuildEstate API is running properly. This backend serves property listings, user authentication, 
-//             and AI analysis features for the BuildEstate property platform.</p>
-//           </div>
-          
-//           <div class="footer">
-//             <p>© ${new Date().getFullYear()} BuildEstate. All rights reserved.</p>
-//           </div>
-//         </div>
-//       </body>
-//     </html>
-//   `);
-// });
-
-// Catch-all handler to serve frontend's index.html for React/SPA routing
-const NODE_ENV = "production";
-
-
-if (NODE_ENV === "production") {
-  // Serve User Frontend
-  app.use(express.static(path.join(__dirname, "dist")));
-  
-  app.use(express.static(path.join(__dirname, "dist_admin")));
-  
-  // Serve Admin Frontend
-  app.use("/admin", express.static(path.join(__dirname, "dist_admin")));
-
-  // Catch-all for Admin SPA routing
-  app.get("/admin/*", (req, res) =>
-      res.sendFile(path.resolve(__dirname, "dist_admin", "index.html"))
-  );
-
-  // Catch-all for User SPA routing
-  app.get("*", (req, res) =>
-      res.sendFile(path.resolve(__dirname, "dist", "index.html"))
-  );
-
-} else {
-  app.get("/", (req, res) => res.send("Please set to production"));
-}
-
 const port = process.env.PORT || 4000;
 
 // Start server
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
+    console.log(`User frontend: http://localhost:${port}`);
+    console.log(`Admin frontend: http://localhost:${port}/admin`);
   });
 }
 

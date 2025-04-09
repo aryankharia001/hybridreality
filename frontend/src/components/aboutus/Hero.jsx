@@ -8,13 +8,10 @@ export default function Hero() {
         {/* Animated gradient background */}
         <div className="absolute inset-0 z-0">
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800"
+            className="absolute inset-0 bg-gradient-to-br from-[var(--theme-color-1)] via--700 to-purple-800"
             animate={{
               background: [
-                'linear-gradient(to bottom right, rgba(37, 99, 235, 1), rgba(79, 70, 229, 1), rgba(124, 58, 237, 0.8))',
-                'linear-gradient(to bottom right, rgba(79, 70, 229, 1), rgba(124, 58, 237, 0.8), rgba(37, 99, 235, 1))',
-                'linear-gradient(to bottom right, rgba(124, 58, 237, 0.8), rgba(37, 99, 235, 1), rgba(79, 70, 229, 1))'
-              ]
+                'white']
             }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           />
@@ -31,13 +28,13 @@ export default function Hero() {
               transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
             />
             
-            <motion.div 
-              className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-indigo-300"
-              animate={{ 
-                x: [0, -40, 0, 40, 0],
-                y: [0, 40, 0, -40, 0],
-                scale: [1, 0.9, 1, 1.1, 1]
-              }}
+            <motion.div
+                className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg--300"
+                animate={{
+                    x: [0, -40, 0, 40, 0],
+                    y: [0, 40, 0, -40, 0],
+                    scale: [1, 0.9, 1, 1.1, 1]
+                }}
               transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
             />
             
@@ -63,16 +60,16 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="relative text-center text-white px-4 max-w-4xl mx-auto z-10"
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 leading-tight">
-            Building Your Future,<br />One Home at a Time
+          <h1 className="text-5xl text-[var(--theme-color-1)] sm:text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            About Us<br />
           </h1>
-          <p className="text-xl md:text-2xl leading-relaxed font-light">
+          {/* <p className="text-xl md:text-2xl leading-relaxed font-light">
             We're more than just a property platform - we're your partner in finding the perfect place to call home.
-          </p>
+          </p> */}
           
           {/* Decorative line */}
           <motion.div 
-            className="w-24 h-1 bg-white mx-auto mt-8"
+            className="w-24 h-1 bg-[var(--theme-color-1)] mx-auto mt-8"
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: 96, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}

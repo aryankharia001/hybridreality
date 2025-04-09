@@ -61,7 +61,7 @@ const LocationTrends = ({ locations }) => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div className="flex items-center">
           <div className="p-2 bg-blue-100 rounded-lg mr-3">
-            <MapPin className="h-5 w-5 text-blue-600" />
+            <MapPin className="h-5 w-5 text-[var(--theme-color-1)]" />
           </div>
           <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Location Price Trends</h2>
         </div>
@@ -106,7 +106,7 @@ const LocationTrends = ({ locations }) => {
                   transition={{ delay: index * 0.1 }}
                 >
                   <div className="flex items-center mb-3">
-                    <MapPin className="w-4 h-4 mr-2 text-blue-500" />
+                    <MapPin className="w-4 h-4 mr-2 text-[var(--theme-hover-color-1)]" />
                     <h3 className="font-medium text-gray-900">{location.location}</h3>
                   </div>
                   <div className="grid grid-cols-2 gap-3 text-sm">
@@ -124,7 +124,7 @@ const LocationTrends = ({ locations }) => {
                             <span className="font-medium">{location.percent_increase}%</span>
                             {location.percent_increase >= 10 && (
                               <span className="ml-1.5 p-1 bg-green-100 rounded-full">
-                                <ArrowUp className="w-3 h-3 text-green-600" />
+                                <ArrowUp className="w-3 h-3 text-[var(--theme-color-3)]" />
                               </span>
                             )}
                           </>
@@ -143,7 +143,7 @@ const LocationTrends = ({ locations }) => {
                       {location.rental_yield != null && (
                         <div className="w-full mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div 
-                            className="h-full bg-blue-600 rounded-full"
+                            className="h-full bg-[var(--theme-color-1)] rounded-full"
                             style={{ width: `${Math.min(100, location.rental_yield * 10)}%` }}
                           ></div>
                         </div>
@@ -176,7 +176,7 @@ const LocationTrends = ({ locations }) => {
                     >
                       <td className="py-3 px-4 font-medium">
                         <div className="flex items-center">
-                          <MapPin className={`w-4 h-4 mr-2 ${highlightedRow === index ? 'text-blue-600' : 'text-gray-400'}`} />
+                          <MapPin className={`w-4 h-4 mr-2 ${highlightedRow === index ? 'text-[var(--theme-color-1)]' : 'text-gray-400'}`} />
                           {location.location}
                         </div>
                       </td>
@@ -190,7 +190,7 @@ const LocationTrends = ({ locations }) => {
                               {location.percent_increase}%
                               {location.percent_increase >= 10 && (
                                 <span className="ml-1.5 p-1 bg-green-100 rounded-full">
-                                  <ArrowUp className="w-3 h-3 text-green-600" />
+                                  <ArrowUp className="w-3 h-3 text-[var(--theme-color-3)]" />
                                 </span>
                               )}
                             </>
@@ -206,7 +206,7 @@ const LocationTrends = ({ locations }) => {
                               {location.rental_yield}%
                               <div className="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
                                 <div 
-                                  className="h-full bg-blue-600 rounded-full"
+                                  className="h-full bg-[var(--theme-color-1)] rounded-full"
                                   style={{ width: `${Math.min(100, location.rental_yield * 10)}%` }}
                                 ></div>
                               </div>
@@ -246,14 +246,14 @@ const LocationTrends = ({ locations }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
                 <div className="flex items-center mb-2">
-                  <DollarSign className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
+                  <DollarSign className="h-5 w-5 text-[var(--theme-color-1)] mr-2 flex-shrink-0" />
                   <h3 className="font-medium text-blue-800">Best Rental Yield</h3>
                 </div>
                 <div className="ml-7">
                   <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 break-words">
                     {bestRentalYield?.location || 'N/A'}
                   </div>
-                  <div className="text-blue-700">
+                  <div className="text-[var(--theme-hover-color-1)]">
                     {bestRentalYield?.rental_yield != null ? `${bestRentalYield.rental_yield}% annual return` : 'Data not available'}
                   </div>
                 </div>
@@ -261,7 +261,7 @@ const LocationTrends = ({ locations }) => {
               
               <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
                 <div className="flex items-center mb-2">
-                  <TrendingUp className="h-5 w-5 text-green-600 mr-2 flex-shrink-0" />
+                  <TrendingUp className="h-5 w-5 text-[var(--theme-color-3)] mr-2 flex-shrink-0" />
                   <h3 className="font-medium text-green-800">Highest Appreciation</h3>
                 </div>
                 <div className="ml-7">
@@ -277,7 +277,7 @@ const LocationTrends = ({ locations }) => {
             
             <div className="bg-blue-50 p-4 sm:p-5 rounded-lg border border-blue-100">
               <div className="flex items-center mb-4">
-                <Info className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
+                <Info className="h-5 w-5 text-[var(--theme-color-1)] mr-2 flex-shrink-0" />
                 <h3 className="font-medium text-gray-800">Investment Insights</h3>
               </div>
               
@@ -289,7 +289,7 @@ const LocationTrends = ({ locations }) => {
                     transition={{ delay: 0.1 }}
                     className="flex items-start"
                   >
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--theme-hover-color-1)] mt-2 mr-2 flex-shrink-0"></span>
                     <span className="break-words">
                       <strong>{bestRentalYield.location}</strong> offers the highest rental yield at {bestRentalYield.rental_yield}%, making it ideal for income-focused investors.
                     </span>
@@ -303,7 +303,7 @@ const LocationTrends = ({ locations }) => {
                     transition={{ delay: 0.2 }}
                     className="flex items-start"
                   >
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--theme-hover-color-1)] mt-2 mr-2 flex-shrink-0"></span>
                     <span className="break-words">
                       <strong>{bestAppreciation.location}</strong> shows the strongest appreciation at {bestAppreciation.percent_increase}%, suggesting good potential for capital growth.
                     </span>
@@ -316,7 +316,7 @@ const LocationTrends = ({ locations }) => {
                   transition={{ delay: 0.3 }}
                   className="flex items-start"
                 >
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--theme-hover-color-1)] mt-2 mr-2 flex-shrink-0"></span>
                   <span className="break-words">
                     Areas with rental yields above 4% and appreciation above 8% offer balanced investment opportunities for both income and growth.
                   </span>

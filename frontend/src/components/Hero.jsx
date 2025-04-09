@@ -68,12 +68,12 @@ const Hero = () => {
     <AnimatedContainer distance={50} direction="vertical">
       <div className="mt-20 relative">
         {/* Invest Button at the Top Right */}
-        <button
+        {/* <button
   onClick={() => navigate("/add")}
-  className="absolute z-10 top-4 right-10 bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium shadow-md"
+  className="absolute z-10 top-4 right-10 bg-[var(--theme-color-1)] text-white px-6 py-3 rounded-xl hover:bg-[var(--theme-hover-color-1)] transition-colors flex items-center justify-center gap-2 font-medium shadow-md"
 >
   Invest
-</button>
+</button> */}
 
 
         <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 my-3 mx-6">
@@ -84,12 +84,12 @@ const Hero = () => {
             transition={{ duration: 1.5 }}
             className="absolute inset-0 z-0 rounded-2xl overflow-hidden"
             style={{
-              backgroundImage: `url(${heroimage})`,
+              // backgroundImage: `url(${heroimage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-sky-300/40 via-slate/10 to-transparent" />
+            <div className="absolute inset-0 via-slate/10 to-transparent" />
           </motion.div>
 
           {/* Content */}
@@ -102,11 +102,11 @@ const Hero = () => {
             >
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-black mb-6 leading-tight">
                 <RadialGradient
-                  gradient={["circle, rgb(38, 22, 217) 0%, rgb(51, 153, 236) 100%"]}
+                  gradient={["circle, var(--theme-color-1) 0%, var(--theme-hover-color-1) 100%"]}
                 >
-                  Hybrid
+                  Hybrid Realty
                   <br />
-                  <span className="text-gray-800">Reality</span>
+                  <span className="text-gray-800"></span>
                 </RadialGradient>
               </h1>
             </motion.div>
@@ -127,12 +127,12 @@ const Hero = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onFocus={() => setShowSuggestions(true)}
                     placeholder="Enter location..."
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-white/90 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-white/90 shadow-sm focus:ring-2 focus:ring-[var(--theme-hover-color-1)] transition-all"
                   />
                 </div>
                 <button
                   onClick={() => handleSubmit()}
-                  className="md:w-auto w-full bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium shadow-md"
+                  className="md:w-auto w-full bg-[var(--theme-color-1)] text-white px-6 py-3 rounded-xl hover:bg-[var(--theme-hover-color-1)] transition-colors flex items-center justify-center gap-2 font-medium shadow-md"
                 >
                   <Search className="w-5 h-5" />
                   <span>Search</span>

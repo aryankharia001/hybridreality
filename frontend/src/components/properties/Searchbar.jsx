@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Search, X, MapPin } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, X, MapPin, Hash } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SearchBar = ({ onSearch, className }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [recentSearches, setRecentSearches] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchContainerRef = useRef(null);
 
   // Popular locations suggestion
   const popularLocations = [
    'Mumbai','Goa','Jaipur','Ahmedabad'
   ];
+
+  // Example property IDs (can be replaced with actual recent IDs from your system)
+  const recentPropertyIds = [1001, 1002, 1005, 1010];
 
   useEffect(() => {
     // Load recent searches from localStorage
@@ -18,6 +22,21 @@ const SearchBar = ({ onSearch, className }) => {
     if (saved) {
       setRecentSearches(JSON.parse(saved));
     }
+
+    // Add click outside listener
+    const handleClickOutside = (event) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    // Clean up the event listener when component unmounts
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleSearch = (query) => {
@@ -52,18 +71,23 @@ const SearchBar = ({ onSearch, className }) => {
     }
   };
 
+  // Check if query might be a property ID
+  const isNumericSearch = (query) => {
+    return /^\d+$/.test(query);
+  };
+
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} ref={searchContainerRef}>
       <form onSubmit={handleSubmit} className="relative">
         <input
           type="text"
-          placeholder="Search by location, property type..."
+          placeholder="Search by location, property type, or ID #..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={() => setShowSuggestions(true)}
           onKeyDown={handleKeyDown}
           className="w-full pl-12 pr-20 py-3 rounded-lg border border-gray-200 
-            focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+            focus:border-[var(--theme-hover-color-1)] focus:ring-2 focus:ring-blue-200 
             transition-all text-gray-800 placeholder-gray-400"
         />
         <Search 
@@ -87,8 +111,8 @@ const SearchBar = ({ onSearch, className }) => {
           )}
           <button 
             type="submit"
-            className="bg-blue-600 text-white px-4 py-1.5 rounded-lg 
-              hover:bg-blue-700 transition-colors flex items-center gap-2"
+            className="bg-[var(--theme-color-1)] text-white px-4 py-1.5 rounded-lg 
+              hover:bg-[var(--theme-hover-color-1)] transition-colors flex items-center gap-2"
           >
             <Search className="h-4 w-4" />
             Search
@@ -106,6 +130,25 @@ const SearchBar = ({ onSearch, className }) => {
             className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg 
               shadow-lg border border-gray-100 overflow-hidden z-50"
           >
+            {/* Property ID search suggestion if input is numeric */}
+            {isNumericSearch(searchQuery) && searchQuery.length > 0 && (
+              <div className="p-2 border-b border-gray-100">
+                <h3 className="text-xs font-medium text-gray-500 px-3 mb-2">
+                  Find by Property ID
+                </h3>
+                <button
+                  onClick={() => {
+                    handleSearch(searchQuery);
+                  }}
+                  className="w-full text-left px-3 py-2 bg-gray-50 
+                    rounded-md flex items-center gap-2 text-gray-700 hover:bg-gray-100"
+                >
+                  <Hash className="h-4 w-4 text-gray-400" />
+                  Property #{searchQuery}
+                </button>
+              </div>
+            )}
+
             {recentSearches.length > 0 && (
               <div className="p-2">
                 <h3 className="text-xs font-medium text-gray-500 px-3 mb-2">
@@ -127,6 +170,27 @@ const SearchBar = ({ onSearch, className }) => {
                 ))}
               </div>
             )}
+
+            {/* Property IDs Section */}
+            <div className="border-t border-gray-100 p-2">
+              <h3 className="text-xs font-medium text-gray-500 px-3 mb-2">
+                Properties by ID
+              </h3>
+              {recentPropertyIds.map((id, index) => (
+                <button
+                  key={`id-${index}`}
+                  onClick={() => {
+                    setSearchQuery(id.toString());
+                    handleSearch(id.toString());
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 
+                    rounded-md flex items-center gap-2 text-gray-700"
+                >
+                  <Hash className="h-4 w-4 text-gray-400" />
+                  Property #{id}
+                </button>
+              ))}
+            </div>
 
             <div className="border-t border-gray-100 p-2">
               <h3 className="text-xs font-medium text-gray-500 px-3 mb-2">

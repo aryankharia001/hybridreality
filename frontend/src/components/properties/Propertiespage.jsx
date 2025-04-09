@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { Grid, List, SlidersHorizontal, MapPin, Home } from "lucide-react";
+import { Grid, List, SlidersHorizontal, MapPin, Home, Hash } from "lucide-react";
 import SearchBar from "./Searchbar.jsx";
 import FilterSection from "./Filtersection.jsx";
 import PropertyCard from "./Propertycard.jsx";
@@ -29,6 +29,7 @@ const PropertiesPage = () => {
     availability: "",
     searchQuery: "",
     sortBy: "",
+    investment:"",
   });
 
   const fetchProperties = async () => {
@@ -36,8 +37,6 @@ const PropertiesPage = () => {
       setPropertyState((prev) => ({ ...prev, loading: true }));
       const response = await axios.get(`${Backendurl}/api/products/list`);
 
-      console.log(response);
-      
       if (response.data.success) {
         const approvedProperties = response.data.property.filter(prop => prop.isApproved);
         
@@ -68,9 +67,23 @@ const PropertiesPage = () => {
   const filteredProperties = useMemo(() => {
     return propertyState.properties
       .filter((property) => {
+        // Check if search is potentially for a serial number
+        const isNumericSearch = !isNaN(filters.searchQuery) && filters.searchQuery.trim() !== '';
+        
+        // If numeric search and serial number matches exactly, prioritize it
+        if (isNumericSearch && property.serialNumber !== undefined) {
+          if (property.serialNumber.toString() === filters.searchQuery.trim()) {
+            return true;
+          }
+        }
+
         const searchMatch = !filters.searchQuery || 
-          [property.title, property.description, property.location]
-            .some(field => field?.toLowerCase().includes(filters.searchQuery.toLowerCase()));
+          [
+            property.title, 
+            property.description, 
+            property.location,
+            property.serialNumber?.toString() || ''
+          ].some(field => field?.toLowerCase().includes(filters.searchQuery.toLowerCase()));
 
         const typeMatch = !filters.propertyType || 
           property.type?.toLowerCase() === filters.propertyType.toLowerCase();
@@ -86,9 +99,17 @@ const PropertiesPage = () => {
 
         const availabilityMatch = !filters.availability || 
           property.availability?.toLowerCase() === filters.availability.toLowerCase();
-
+          
+        const investmentMatch = !filters.investment || (
+          filters.investment === "yes" 
+            ? (property.invest && property.invest !== "") || property.isForInvestment
+            : filters.investment === "no" 
+              ? (!property.invest || property.invest === "") && !property.isForInvestment
+              : true
+        );
+          
         return searchMatch && typeMatch && priceMatch && 
-          bedroomsMatch && bathroomsMatch && availabilityMatch;
+          bedroomsMatch && bathroomsMatch && availabilityMatch && investmentMatch;
       })
       .sort((a, b) => {
         switch (filters.sortBy) {
@@ -98,6 +119,8 @@ const PropertiesPage = () => {
             return b.price - a.price;
           case "newest":
             return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+          case "serial":
+            return (a.serialNumber || 0) - (b.serialNumber || 0);
           default:
             return 0;
         }
@@ -111,6 +134,15 @@ const PropertiesPage = () => {
     }));
   };
 
+  // Check if we have an exact serial number match
+  const exactSerialMatch = useMemo(() => {
+    const isNumericSearch = !isNaN(filters.searchQuery) && filters.searchQuery.trim() !== '';
+    if (isNumericSearch && filteredProperties.length === 1) {
+      return filteredProperties[0].serialNumber?.toString() === filters.searchQuery.trim();
+    }
+    return false;
+  }, [filteredProperties, filters.searchQuery]);
+
   if (propertyState.loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -122,7 +154,7 @@ const PropertiesPage = () => {
           <div className="relative mb-6">
             {/* Main loader animation */}
             <motion.div
-              className="w-24 h-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center relative shadow-lg shadow-blue-500/30"
+              className="w-24 h-24 bg-gradient-to-r from-[var(--theme-hover-color-1)] to-[var(--theme-hover-color-1)] rounded-2xl flex items-center justify-center relative shadow-lg shadow-[var(--theme-hover-color-1)]/30"
               animate={{ 
                 rotate: [0, 0, 360, 360, 0],
                 scale: [1, 0.9, 0.9, 1, 1],
@@ -144,7 +176,7 @@ const PropertiesPage = () => {
             />
             
             <motion.div 
-              className="absolute w-2 h-2 bg-indigo-400 rounded-full"
+              className="absolute w-2 h-2 bg--400 rounded-full"
               animate={{
                 x: [0, -30, 0, 30, 0],
                 y: [30, 0, -30, 0, 30],
@@ -153,10 +185,10 @@ const PropertiesPage = () => {
             />
   
             {/* Background pulse effect */}
-            <div className="absolute inset-0 bg-blue-500/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
+            <div className="absolute inset-0 bg-[var(--theme-hover-color-1)]/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
           </div>
           
-          <h3 className="text-2xl font-bold text-gray-800 mb-3 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h3 className="text-2xl font-bold text-gray-800 mb-3 bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] bg-clip-text text-transparent">
             Loading Properties
           </h3>
           
@@ -167,7 +199,7 @@ const PropertiesPage = () => {
           {/* Progress bar with animated gradient */}
           <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden relative">
             <motion.div
-              className="h-full bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 bg-size-200 absolute top-0 left-0 right-0"
+              className="h-full bg-gradient-to-r from-[var(--theme-color-1)] via--500 to-[var(--theme-color-1)] bg-size-200 absolute top-0 left-0 right-0"
               animate={{ 
                 backgroundPosition: ["0% center", "100% center", "0% center"] 
               }}
@@ -180,11 +212,11 @@ const PropertiesPage = () => {
             />
           </div>
           
-          <div className="flex items-center mt-4 text-xs text-blue-600">
+          <div className="flex items-center mt-4 text-xs text-[var(--theme-color-1)]">
             <motion.div 
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"
+              className="w-1.5 h-1.5 bg-[var(--theme-color-1)] rounded-full mr-2"
             />
             <span>Please wait while we curate properties for you</span>
           </div>
@@ -204,7 +236,7 @@ const PropertiesPage = () => {
           <p className="font-medium mb-4">{propertyState.error}</p>
           <button
             onClick={fetchProperties}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+            className="px-6 py-2 bg-[var(--theme-color-1)] text-white rounded-lg hover:bg-[var(--theme-hover-color-1)] 
               transition-colors duration-200"
           >
             Try Again
@@ -273,6 +305,7 @@ const PropertiesPage = () => {
                     <option value="price-asc">Price: Low to High</option>
                     <option value="price-desc">Price: High to Low</option>
                     <option value="newest">Newest First</option>
+                    <option value="serial">Property ID</option>
                   </select>
 
                   <div className="flex items-center gap-2">
@@ -289,7 +322,7 @@ const PropertiesPage = () => {
                     <button
                       onClick={() => setViewState(prev => ({ ...prev, isGridView: true }))}
                       className={`p-2 rounded-lg ${
-                        viewState.isGridView ? "bg-blue-100 text-blue-600" : "hover:bg-gray-100"
+                        viewState.isGridView ? "bg-blue-100 text-[var(--theme-color-1)]" : "hover:bg-gray-100"
                       }`}
                     >
                       <Grid className="w-5 h-5" />
@@ -297,7 +330,7 @@ const PropertiesPage = () => {
                     <button
                       onClick={() => setViewState(prev => ({ ...prev, isGridView: false }))}
                       className={`p-2 rounded-lg ${
-                        !viewState.isGridView ? "bg-blue-100 text-blue-600" : "hover:bg-gray-100"
+                        !viewState.isGridView ? "bg-blue-100 text-[var(--theme-color-1)]" : "hover:bg-gray-100"
                       }`}
                     >
                       <List className="w-5 h-5" />
@@ -306,6 +339,20 @@ const PropertiesPage = () => {
                 </div>
               </div>
             </div>
+
+            {/* Serial Number Search Notification */}
+            {exactSerialMatch && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-blue-50 border border-blue-100 p-4 rounded-lg mb-6 flex items-center"
+              >
+                <Hash className="w-5 h-5 text-blue-500 mr-2" />
+                <p className="text-blue-700 font-medium">
+                  Showing exact match for Property #{filters.searchQuery}
+                </p>
+              </motion.div>
+            )}
 
             <motion.div
               layout
@@ -317,6 +364,7 @@ const PropertiesPage = () => {
                 {filteredProperties.length > 0 ? (
                   filteredProperties.map((property) => (
                     <PropertyCard
+                      availability={property.availability}
                       key={property._id}
                       property={property}
                       viewType={viewState.isGridView ? "grid" : "list"}
@@ -334,7 +382,10 @@ const PropertiesPage = () => {
                       No properties found
                     </h3>
                     <p className="text-gray-600">
-                      Try adjusting your filters or search criteria
+                      {!isNaN(filters.searchQuery) && filters.searchQuery.trim() !== '' 
+                        ? `No property found with ID #${filters.searchQuery}`
+                        : 'Try adjusting your filters or search criteria'
+                      }
                     </p>
                   </motion.div>
                 )}

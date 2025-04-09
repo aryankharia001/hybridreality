@@ -53,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to--50 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -64,8 +64,8 @@ const Login = () => {
           {/* Logo & Title */}
           <div className="text-center mb-8">
             <Link to="/" className="inline-block">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                BuildEstate
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] bg-clip-text text-transparent">
+                Hybrid Realty
               </h2>
             </Link>
             <h2 className="mt-6 text-2xl font-semibold text-gray-800">Welcome back</h2>
@@ -85,7 +85,7 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[var(--theme-hover-color-1)] focus:ring-2 focus:ring-[var(--theme-hover-color-1)]/20 transition-all duration-200"
                 placeholder="name@company.com"
               />
             </div>
@@ -103,7 +103,7 @@ const Login = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[var(--theme-hover-color-1)] focus:ring-2 focus:ring-[var(--theme-hover-color-1)]/20 transition-all duration-200"
                   placeholder="••••••••"
                 />
                 <button
@@ -120,7 +120,7 @@ const Login = () => {
             <div className="flex items-center justify-end">
               <Link 
                 to="/forgot-password"
-                className="text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                className="text-sm text-[var(--theme-color-1)] hover:text-[var(--theme-hover-color-1)] transition-colors"
               >
                 Forgot password?
               </Link>
@@ -130,7 +130,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg shadow-blue-500/25"
+              className="w-full bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-color-1)] text-white py-3 rounded-lg hover:from-[var(--theme-hover-color-1)] hover:to-[var(--theme-hover-color-1)] transition-all duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg shadow-[var(--theme-hover-color-1)]/25"
             >
               {loading ? (
                 <Loader className="w-5 h-5 animate-spin" />

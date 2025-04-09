@@ -10,7 +10,9 @@ import {
   X, 
   LogOut, 
   LayoutDashboard, 
-  Database 
+  Database,
+  Users,
+  Gift // Added Gift icon for Lucky Draw
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -19,7 +21,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const isActive = (path) => {
-    return location.pathname === path;
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
   
   const handleLogout = () => {
@@ -36,7 +38,9 @@ const Navbar = () => {
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/list', label: 'Properties', icon: List },
     { path: '/admin/approved', label: 'Add Property', icon: PlusSquare },
+    { path: '/admin/lucky-draw', label: 'Lucky Draw', icon: Gift }, // Added Lucky Draw item
     { path: '/appointments', label: 'Appointments', icon: Calendar },
+    { path: '/admin/users', label: 'Users', icon: Users },
   ];
 
   return (
@@ -59,13 +63,24 @@ const Navbar = () => {
                 to={item.path}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   isActive(item.path)
-                    ? 'bg-blue-50 text-blue-700'
+                    ? item.path === '/admin/lucky-draw' 
+                      ? 'bg-amber-50 text-amber-700' // Special styling for Lucky Draw
+                      : 'bg-blue-50 text-blue-700'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <div className="flex items-center">
-                  <item.icon className="h-4 w-4 mr-1.5" />
+                  <item.icon className={`h-4 w-4 mr-1.5 ${
+                    item.path === '/admin/lucky-draw' && isActive(item.path)
+                      ? 'text-amber-500' // Special color for Lucky Draw icon
+                      : ''
+                  }`} />
                   {item.label}
+                  {item.path === '/admin/lucky-draw' && (
+                    <span className="ml-1.5 text-xs px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded-full">
+                      New
+                    </span>
+                  )}
                 </div>
               </Link>
             ))}
@@ -112,14 +127,25 @@ const Navbar = () => {
                 to={item.path}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive(item.path)
-                    ? 'bg-blue-50 text-blue-700'
+                    ? item.path === '/admin/lucky-draw'
+                      ? 'bg-amber-50 text-amber-700' // Special styling for Lucky Draw
+                      : 'bg-blue-50 text-blue-700'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <div className="flex items-center">
-                  <item.icon className="h-5 w-5 mr-2" />
+                  <item.icon className={`h-5 w-5 mr-2 ${
+                    item.path === '/admin/lucky-draw' && isActive(item.path)
+                      ? 'text-amber-500' // Special color for Lucky Draw icon
+                      : ''
+                  }`} />
                   {item.label}
+                  {item.path === '/admin/lucky-draw' && (
+                    <span className="ml-1.5 text-xs px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded-full">
+                      New
+                    </span>
+                  )}
                 </div>
               </Link>
             ))}

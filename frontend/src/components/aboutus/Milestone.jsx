@@ -29,7 +29,7 @@ export default function Milestones() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-4">Our Journey So Far</h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+          <div className="w-24 h-1 bg-[var(--theme-color-1)] mx-auto mb-6"></div>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Milestones that mark our growth and success
           </p>
@@ -49,9 +49,9 @@ export default function Milestones() {
                 whileHover={{ y: -5 }}
               >
                 <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon className="w-12 h-12 text-blue-600" />
+                  <Icon className="w-12 h-12 text-[var(--theme-color-1)]" />
                 </div>
-                <h3 className="text-5xl font-bold text-blue-600 mb-4">
+                <h3 className="text-5xl font-bold text-[var(--theme-color-1)] mb-4">
                   <CountUp from={0} to={milestone.value} duration={2} separator="," />
                 </h3>
                 <p className="text-2xl font-semibold mb-3">{milestone.title}</p>

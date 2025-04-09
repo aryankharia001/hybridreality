@@ -17,7 +17,7 @@ const submitNewsletter = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
-      subject: "Welcome to BuildEstate Newsletter! 🏠",
+      subject: "Welcome to Hybrid Realty Newsletter! 🏠",
       html: getNewsletterTemplate(email),
     };
 

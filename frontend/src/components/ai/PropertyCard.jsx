@@ -15,7 +15,7 @@ const PropertyCard = ({ property }) => {
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl border border-gray-100 flex flex-col h-full"
     >
       {/* Header with gradient background */}
-      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-4 sm:p-5 relative">
+      <div className="bg-gradient-to-r from-[var(--theme-hover-color-1)] to-[var(--theme-hover-color-1)] p-4 sm:p-5 relative">
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -64,7 +64,7 @@ const PropertyCard = ({ property }) => {
             className="flex w-full items-center justify-between text-left sm:pointer-events-none"
           >
             <h4 className="text-sm font-medium text-gray-700 flex items-center">
-              <Building className="w-4 h-4 text-blue-500 mr-1.5" />
+              <Building className="w-4 h-4 text-[var(--theme-hover-color-1)] mr-1.5" />
               Overview
             </h4>
             <motion.div 
@@ -95,7 +95,7 @@ const PropertyCard = ({ property }) => {
         {property.amenities && property.amenities.length > 0 && (
           <div className="mt-auto">
             <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <Tag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500 mr-1.5" />
+              <Tag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--theme-hover-color-1)] mr-1.5" />
               Amenities
             </h4>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -104,7 +104,7 @@ const PropertyCard = ({ property }) => {
                   key={index}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-blue-100"
+                  className="bg-blue-50 text-[var(--theme-hover-color-1)] text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-blue-100"
                 >
                   {amenity}
                 </motion.span>

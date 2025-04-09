@@ -79,9 +79,9 @@ const FooterLink = ({ href, children }) => {
   return (
     <a 
       href={href} 
-      className="flex items-center text-base text-gray-600 transition-all duration-200 hover:text-blue-600 hover:translate-x-1 py-1.5 lg:py-0"
+      className="flex items-center text-base text-gray-600 transition-all duration-200 hover:text-[var(--theme-color-1)] hover:translate-x-1 py-1.5 lg:py-0"
     >
-      <ChevronRight className="w-3.5 h-3.5 mr-1 text-blue-500 opacity-0 transition-all duration-200 group-hover:opacity-100" />
+      <ChevronRight className="w-3.5 h-3.5 mr-1 text-[var(--theme-hover-color-1)] opacity-0 transition-all duration-200 group-hover:opacity-100" />
       {children}
     </a>
   );
@@ -164,7 +164,7 @@ const Newsletter = () => {
               placeholder="Your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 pr-4 py-3 w-full text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="pl-10 pr-4 py-3 w-full text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--theme-hover-color-1)] focus:border-transparent transition-all duration-200"
             />
           </div>
           <motion.button
@@ -172,7 +172,7 @@ const Newsletter = () => {
             whileTap={{ scale: 0.97 }}
             type="submit"
             disabled={loading}
-            className="bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors duration-200 disabled:opacity-70 sm:w-auto w-full"
+            className="bg-[var(--theme-color-1)] text-white px-4 py-3 rounded-lg flex items-center justify-center hover:bg-[var(--theme-hover-color-1)] transition-colors duration-200 disabled:opacity-70 sm:w-auto w-full"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -187,7 +187,7 @@ const Newsletter = () => {
       </form>
 
       <p className="mt-3 text-xs text-gray-500">
-        By subscribing, you agree to our <a href="#" className="underline hover:text-blue-600">Privacy Policy</a>.
+        By subscribing, you agree to our <a href="#" className="underline hover:text-[var(--theme-color-1)]">Privacy Policy</a>.
       </p>
     </div>
   );
@@ -199,7 +199,7 @@ const companyLinks = [
   { name: 'Properties', href: '/properties' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
-  { name: 'AI Property Hub', href: '/ai-agent' },
+  // { name: 'AI Property Hub', href: '/ai-agent' },
 ];
 
 const helpLinks = [
@@ -212,18 +212,18 @@ const helpLinks = [
 const contactInfo = [
   { 
     icon: MapPin, 
-    text: '123 Property Plaza, Silicon Valley, CA 94088',
-    href: 'https://maps.google.com/?q=123+Property+Plaza,Silicon+Valley,CA+94088' 
+    text: 'ABC',
+    href: '' 
   },
   { 
     icon: Phone, 
-    text: '+1 (234) 567-890',
-    href: 'tel:+1234567890'
+    text: '9999999999',
+    href: 'tel:999999999'
   },
   { 
     icon: Mail, 
-    text: 'support@buildestate.com',
-    href: 'mailto:support@buildestate.com' 
+    text: 'aryankharia01@gmail.com',
+    href: 'mailto:aryankharia01@gmail.com' 
   },
 ];
 
@@ -237,10 +237,10 @@ const Footer = () => {
           <div className="mb-10">
             <div className="flex items-center justify-center lg:justify-start">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <Home className="h-6 w-6 text-blue-600" />
+                <Home className="h-6 w-6 text-[var(--theme-color-1)]" />
               </div>
-              <span className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-                BuildEstate
+              <span className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)]">
+                Hybrid Realty
               </span>
             </div>
             
@@ -284,11 +284,11 @@ const Footer = () => {
                   <li key={index}>
                     <a 
                       href={item.href} 
-                      className="flex items-start text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                      className="flex items-start text-gray-600 hover:text-[var(--theme-color-1)] transition-colors duration-200"
                       target={item.icon === MapPin ? "_blank" : undefined}
                       rel={item.icon === MapPin ? "noopener noreferrer" : undefined}
                     >
-                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-blue-500" />
+                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[var(--theme-hover-color-1)]" />
                       <span className="text-sm">{item.text}</span>
                     </a>
                   </li>
@@ -330,11 +330,11 @@ const Footer = () => {
                   <li key={index}>
                     <a 
                       href={item.href} 
-                      className="flex items-start text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                      className="flex items-start text-gray-600 hover:text-[var(--theme-color-1)] transition-colors duration-200"
                       target={item.icon === MapPin ? "_blank" : undefined}
                       rel={item.icon === MapPin ? "noopener noreferrer" : undefined}
                     >
-                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-blue-500" />
+                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[var(--theme-hover-color-1)]" />
                       <span className="text-sm">{item.text}</span>
                     </a>
                   </li>
@@ -353,14 +353,14 @@ const Footer = () => {
       <div className="bg-gray-100 border-t border-gray-200 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-600 mb-4 md:mb-0 text-center md:text-left">
-            © {new Date().getFullYear()} BuildEstate. All Rights Reserved.
+            © {new Date().getFullYear()} Hybrid Realty. All Rights Reserved.
           </p>
           
           <motion.a
             href="/properties"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
+            className="flex items-center text-[var(--theme-color-1)] hover:text-[var(--theme-hover-color-1)] text-sm font-medium"
           >
             Browse Our Properties
             <ArrowRight className="ml-2 h-4 w-4" />

@@ -173,17 +173,17 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
               {/* Step indicator */}
               <div className="mb-6">
                 <div className="flex items-center justify-between">
-                  <div className={`flex flex-col items-center ${step >= 1 ? 'text-blue-600' : 'text-gray-400'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 mb-1 ${step >= 1 ? 'border-blue-600 bg-blue-50' : 'border-gray-300'}`}>
+                  <div className={`flex flex-col items-center ${step >= 1 ? 'text-[var(--theme-color-1)]' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 mb-1 ${step >= 1 ? 'border-[var(--theme-color-1)] bg-blue-50' : 'border-gray-300'}`}>
                       <Calendar className="w-4 h-4" />
                     </div>
                     <span className="text-xs">Date & Time</span>
                   </div>
                   <div className="flex-1 h-0.5 mx-4 bg-gray-200">
-                    <div className={`h-full bg-blue-600 transition-all duration-300`} style={{ width: step >= 2 ? '100%' : '0%' }}></div>
+                    <div className={`h-full bg-[var(--theme-color-1)] transition-all duration-300`} style={{ width: step >= 2 ? '100%' : '0%' }}></div>
                   </div>
-                  <div className={`flex flex-col items-center ${step >= 2 ? 'text-blue-600' : 'text-gray-400'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 mb-1 ${step >= 2 ? 'border-blue-600 bg-blue-50' : 'border-gray-300'}`}>
+                  <div className={`flex flex-col items-center ${step >= 2 ? 'text-[var(--theme-color-1)]' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 mb-1 ${step >= 2 ? 'border-[var(--theme-color-1)] bg-blue-50' : 'border-gray-300'}`}>
                       <Info className="w-4 h-4" />
                     </div>
                     <span className="text-xs">Details</span>
@@ -210,7 +210,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                           onChange={handleDateChange}
                           min={dateRestrictions.min}
                           max={dateRestrictions.max}
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--theme-hover-color-1)] focus:border-[var(--theme-hover-color-1)] shadow-sm"
                           required
                           disabled={loading}
                         />
@@ -230,7 +230,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                         <select
                           value={formData.time}
                           onChange={handleTimeChange}
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm appearance-none cursor-pointer"
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--theme-hover-color-1)] focus:border-[var(--theme-hover-color-1)] shadow-sm appearance-none cursor-pointer"
                           required
                           disabled={!formData.date || loading}
                         >
@@ -263,7 +263,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                         type="button"
                         onClick={() => canProceedToStep2 && setStep(2)}
                         disabled={!canProceedToStep2 || loading}
-                        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
+                        className="w-full bg-[var(--theme-color-1)] text-white py-3 rounded-lg hover:bg-[var(--theme-hover-color-1)] 
                           transition-colors flex items-center justify-center gap-2 disabled:bg-blue-300"
                       >
                         Continue
@@ -285,17 +285,17 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                         <button 
                           type="button" 
                           onClick={() => setStep(1)}
-                          className="text-xs text-blue-600 hover:text-blue-800"
+                          className="text-xs text-[var(--theme-color-1)] hover:text-blue-800"
                         >
                           Change
                         </button>
                       </div>
                       <div className="flex items-center">
-                        <Calendar className="w-4 h-4 text-blue-600 mr-2" />
+                        <Calendar className="w-4 h-4 text-[var(--theme-color-1)] mr-2" />
                         <span className="text-gray-700">{formatDate(formData.date)}</span>
                       </div>
                       <div className="flex items-center mt-1">
-                        <Clock className="w-4 h-4 text-blue-600 mr-2" />
+                        <Clock className="w-4 h-4 text-[var(--theme-color-1)] mr-2" />
                         <span className="text-gray-700">{formData.time}</span>
                       </div>
                     </div>
@@ -308,7 +308,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                       <textarea
                         value={formData.notes}
                         onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--theme-hover-color-1)] focus:border-[var(--theme-hover-color-1)] shadow-sm"
                         rows={4}
                         placeholder="Any specific requirements or questions about the property..."
                         disabled={loading}
@@ -328,7 +328,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                       <button
                         type="submit"
                         disabled={loading}
-                        className="lg:w-1/2 order-1 lg:order-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
+                        className="lg:w-1/2 order-1 lg:order-2 bg-[var(--theme-color-1)] text-white py-3 rounded-lg hover:bg-[var(--theme-hover-color-1)] 
                           transition-colors flex items-center justify-center gap-2 disabled:bg-blue-400"
                       >
                         {loading ? (
@@ -352,7 +352,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
               className="text-center py-6"
             >
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-green-600" />
+                <CheckCircle className="w-8 h-8 text-[var(--theme-color-3)]" />
               </div>
               
               <h3 className="text-xl font-bold text-gray-900 mb-2">Viewing Scheduled!</h3>
@@ -362,16 +362,16 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
               
               <div className="bg-blue-50 rounded-lg p-4 max-w-xs mx-auto mb-6">
                 <div className="flex items-center mb-2">
-                  <Calendar className="w-4 h-4 text-blue-600 mr-2" />
+                  <Calendar className="w-4 h-4 text-[var(--theme-color-1)] mr-2" />
                   <span className="text-gray-700 text-sm">{formatDate(formData.date)}</span>
                 </div>
                 <div className="flex items-center mb-2">
-                  <Clock className="w-4 h-4 text-blue-600 mr-2" />
+                  <Clock className="w-4 h-4 text-[var(--theme-color-1)] mr-2" />
                   <span className="text-gray-700 text-sm">{formData.time}</span>
                 </div>
                 {propertyTitle && (
                   <div className="flex items-center">
-                    <MapPin className="w-4 h-4 text-blue-600 mr-2" />
+                    <MapPin className="w-4 h-4 text-[var(--theme-color-1)] mr-2" />
                     <span className="text-gray-700 text-sm">{propertyTitle}</span>
                   </div>
                 )}
@@ -383,7 +383,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
               
               <button
                 onClick={onClose}
-                className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+                className="bg-[var(--theme-color-1)] text-white py-2 px-6 rounded-lg hover:bg-[var(--theme-hover-color-1)] transition-colors"
               >
                 Close
               </button>
@@ -394,7 +394,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
           {!isSuccess && (
             <div className="mt-6 pt-4 border-t border-gray-100">
               <div className="flex items-center text-sm text-gray-600">
-                <Users className="w-4 h-4 text-blue-600 mr-2" />
+                <Users className="w-4 h-4 text-[var(--theme-color-1)] mr-2" />
                 <span>A qualified agent will guide you through the viewing</span>
               </div>
             </div>

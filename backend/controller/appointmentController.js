@@ -167,23 +167,32 @@ const calculateRevenue = async () => {
 // Appointment management
 export const getAllAppointments = async (req, res) => {
   try {
+    console.log("Fetching appointments...");
+
     const appointments = await Appointment.find()
-      .populate('propertyId', 'title location')
-      .populate('userId', 'name email')
+      .populate("propertyId", "title location")
+      .populate("userId", "name email")
       .sort({ createdAt: -1 });
+    
+    if (appointments.length === 0) {
+      console.log("No appointments found.");
+    } else {
+      console.log("Appointments fetched:");
+    }
 
     res.json({
       success: true,
-      appointments
+      appointments,
     });
   } catch (error) {
-    console.error('Error fetching appointments:', error);
+    console.error("Error fetching appointments:", error);
     res.status(500).json({
       success: false,
-      message: 'Error fetching appointments'
+      message: "Error fetching appointments",
     });
   }
 };
+
 
 export const updateAppointmentStatus = async (req, res) => {
   try {
@@ -206,7 +215,7 @@ export const updateAppointmentStatus = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: appointment.userId.email,
-      subject: `Viewing Appointment ${status.charAt(0).toUpperCase() + status.slice(1)} - BuildEstate`,
+      subject: `Viewing Appointment ${status.charAt(0).toUpperCase() + status.slice(1)} - Hybrid Realty`,
       html: getEmailTemplate(appointment, status)
     };
 
@@ -276,7 +285,7 @@ export const scheduleViewing = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: req.user.email,
-      subject: "Viewing Scheduled - BuildEstate",
+      subject: "Viewing Scheduled - Hybrid Realty",
       html: getSchedulingEmailTemplate(appointment, date, time, notes)
     };
 
@@ -327,7 +336,7 @@ export const cancelAppointment = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: appointment.userId.email,
-      subject: 'Appointment Cancelled - BuildEstate',
+      subject: 'Appointment Cancelled - Hybrid Realty',
       html: `
         <div style="max-width: 600px; margin: 20px auto; padding: 30px; background: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
           <h1 style="color: #2563eb; text-align: center;">Appointment Cancelled</h1>
@@ -398,7 +407,7 @@ export const updateAppointmentMeetingLink = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: appointment.userId.email,
-      subject: "Meeting Link Updated - BuildEstate",
+      subject: "Meeting Link Updated - Hybrid Realty",
       html: `
         <div style="max-width: 600px; margin: 20px auto; font-family: 'Arial', sans-serif; line-height: 1.6;">
           <div style="background: linear-gradient(135deg, #2563eb, #1e40af); padding: 40px 20px; border-radius: 15px 15px 0 0; text-align: center;">

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const appointmentSchema = new mongoose.Schema({
   propertyId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Property',
+    ref: 'properties',
     required: true
   },
   userId: {

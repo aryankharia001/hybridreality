@@ -43,4 +43,14 @@
 
 :root{
   --btncolor : green;
+  
+  --property-card-sell-color : rgb(217, 247, 186);
+  --property-card-rent-color : rgb(186, 233, 247);
+
+  --theme-color-1 : rgb(45, 45, 45);
+  --theme-color-2 : rgb(255, 255, 255);
+  --theme-color-3 : rgb(65, 168, 49);
+  --theme-hover-color-1 : rgb(0, 0, 0);
+  --theme-hover-color-2 : rgb(224, 224, 224);
+  --theme-hover-color-3 : rgb(0,0,0);
 }

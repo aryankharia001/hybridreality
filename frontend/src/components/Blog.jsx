@@ -100,7 +100,7 @@ const BlogCard = ({ post }) => {
         <div className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-70'}`} />
         
         <div className="absolute top-4 left-4 z-10">
-          <span className="px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-medium rounded-full shadow-sm">
+          <span className="px-3 py-1.5 bg-[var(--theme-color-1)]/90 backdrop-blur-sm text-white text-xs font-medium rounded-full shadow-sm">
             {category}
           </span>
         </div>
@@ -118,7 +118,7 @@ const BlogCard = ({ post }) => {
                   e.stopPropagation();
                   handleReadMore();
                 }}
-                className="px-4 py-2 bg-white/90 backdrop-blur-sm text-blue-600 rounded-full flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-colors duration-300 font-medium text-sm shadow-lg"
+                className="px-4 py-2 bg-white/90 backdrop-blur-sm text-[var(--theme-color-1)] rounded-full flex items-center gap-2 hover:bg-[var(--theme-color-1)] hover:text-white transition-colors duration-300 font-medium text-sm shadow-lg"
               >
                 Read Full Article <ExternalLink className="w-3.5 h-3.5" />
               </button>
@@ -132,7 +132,7 @@ const BlogCard = ({ post }) => {
             onClick={handleBookmark}
             className={`p-2 backdrop-blur-sm rounded-full shadow-lg 
               ${isBookmarked 
-                ? 'bg-blue-600 text-white' 
+                ? 'bg-[var(--theme-color-1)] text-white' 
                 : 'bg-white/80 text-gray-700 hover:bg-blue-50'
               } transition-colors duration-200`}
           >
@@ -156,16 +156,16 @@ const BlogCard = ({ post }) => {
       <div className="p-6">
         <div className="flex items-center justify-between text-gray-500 text-xs mb-3">
           <div className="flex items-center">
-            <Calendar className="w-3.5 h-3.5 mr-1.5 text-blue-500" />
+            <Calendar className="w-3.5 h-3.5 mr-1.5 text-[var(--theme-hover-color-1)]" />
             {post.date}
           </div>
           <div className="flex items-center">
-            <Clock className="w-3.5 h-3.5 mr-1.5 text-blue-500" />
+            <Clock className="w-3.5 h-3.5 mr-1.5 text-[var(--theme-hover-color-1)]" />
             {estimatedReadTime} min read
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[var(--theme-color-1)] transition-colors">
           {post.title}
         </h3>
         
@@ -179,7 +179,7 @@ const BlogCard = ({ post }) => {
               e.stopPropagation();
               handleReadMore();
             }}
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors text-sm"
+            className="inline-flex items-center text-[var(--theme-color-1)] hover:text-blue-800 font-medium transition-colors text-sm"
           >
             Continue Reading
             <ChevronRight className="w-4 h-4 ml-1" />
@@ -221,7 +221,7 @@ const Blog = () => {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4 relative inline-block">
             Latest Insights
-            <div className="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-blue-600 rounded-full"></div>
+            <div className="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-[var(--theme-color-1)] rounded-full"></div>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mt-6">
             Expert advice and tips for your real estate journey
@@ -237,7 +237,7 @@ const Blog = () => {
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[var(--theme-hover-color-1)] focus:border-transparent transition-all"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             </div>
@@ -249,7 +249,7 @@ const Blog = () => {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     selectedCategory === category
-                      ? 'bg-blue-600 text-white shadow-md'
+                      ? 'bg-[var(--theme-color-1)] text-white shadow-md'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -292,7 +292,7 @@ const Blog = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl 
+            className="px-8 py-3 bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] text-white rounded-xl 
               shadow-lg hover:shadow-xl transition-all font-medium inline-flex items-center"
           >
             View All Articles

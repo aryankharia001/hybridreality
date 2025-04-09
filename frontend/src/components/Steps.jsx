@@ -36,9 +36,9 @@ function Step({ icon: Icon, title, description, stepNumber }) {
 
       
       {/* Icon container */}
-      <div className="w-20 h-20 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl flex items-center justify-center mb-5 shadow-md relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <Icon className="h-10 w-10 text-blue-600 group-hover:text-white relative z-10 transition-colors duration-300" />
+      <div className="w-20 h-20 bg-gradient-to-br from-blue-50 to--50 rounded-2xl flex items-center justify-center mb-5 shadow-md relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <Icon className="h-10 w-10 text-[var(--theme-color-1)] group-hover:text-white relative z-10 transition-colors duration-300" />
       </div>
       
       {/* Content */}
@@ -50,7 +50,7 @@ function Step({ icon: Icon, title, description, stepNumber }) {
         whileHover={{ scale: 1.1 }}
         className="mt-4 p-2 bg-blue-100 rounded-full hover:bg-blue-200 transition-colors cursor-pointer"
       >
-        <ChevronRight className="h-5 w-5 text-blue-600" />
+        <ChevronRight className="h-5 w-5 text-[var(--theme-color-1)]" />
       </motion.div>
     </motion.div>
   );
@@ -68,9 +68,9 @@ export default function HowItWorks() {
           transition={{ duration: 0.5 }}
           className="text-center mb-20"
         >
-          <span className="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase">Simple Process</span>
+          <span className="bg-blue-50 text-[var(--theme-color-1)] px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase">Simple Process</span>
           <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">How It Works</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto mb-6 rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[var(--theme-hover-color-1)] to-[var(--theme-hover-color-1)] mx-auto mb-6 rounded-full"></div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Finding your perfect property is easy with our simple three-step process
           </p>
@@ -87,7 +87,7 @@ export default function HowItWorks() {
           {/* Process line - desktop */}
           <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-gray-100">
             <div className="absolute left-0 right-0 top-0 h-full">
-              <div className="h-full w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 bg-size-200 animate-bg-pos-x"></div>
+              <div className="h-full w-full bg-gradient-to-r from-[var(--theme-hover-color-1)] via--500 to-[var(--theme-hover-color-1)] bg-size-200 animate-bg-pos-x"></div>
             </div>
           </div>
 
@@ -115,7 +115,7 @@ export default function HowItWorks() {
                       repeatType: "reverse",
                     }}
                   >
-                    <ArrowRight className="h-8 w-8 text-blue-500" />
+                    <ArrowRight className="h-8 w-8 text-[var(--theme-hover-color-1)]" />
                   </motion.div>
                 </div>
               )}
@@ -135,8 +135,8 @@ export default function HowItWorks() {
             href="/properties"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 
-              text-white font-medium rounded-lg hover:shadow-lg transition-all shadow-blue-500/30"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] 
+              text-white font-medium rounded-lg hover:shadow-lg transition-all shadow-[var(--theme-hover-color-1)]/30"
           >
             Browse Properties
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -151,7 +151,7 @@ export default function HowItWorks() {
           transition={{ delay: 0.8 }}
           className="mt-20 max-w-3xl mx-auto"
         >
-          <div className="bg-white p-8 rounded-xl shadow-xl border border-gray-50 text-center">
+          {/* <div className="bg-white p-8 rounded-xl shadow-xl border border-gray-50 text-center">
             <p className="text-gray-700 italic text-lg mb-4">
               {`"The 3-step process was incredibly smooth. Within a week, I found and secured my dream apartment!"`}
             </p>
@@ -163,7 +163,7 @@ export default function HowItWorks() {
                 </svg>
               ))}
             </div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </section>

@@ -69,7 +69,7 @@ const AnalysisDisplay = ({ analysis }) => {
         className="ml-3 mt-1 text-gray-700 flex items-start"
       >
         {!ordered && (
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-3 mr-2 flex-shrink-0"></span>
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--theme-hover-color-1)] mt-3 mr-2 flex-shrink-0"></span>
         )}
         <span className="break-words" {...props} />
       </motion.li>
@@ -88,7 +88,7 @@ const AnalysisDisplay = ({ analysis }) => {
       <em className="text-gray-800 italic" {...props} />
     ),
     a: ({node, ...props}) => (
-      <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer" {...props} />
+      <a className="text-[var(--theme-color-1)] hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer" {...props} />
     ),
     blockquote: ({node, ...props}) => (
       <motion.blockquote
@@ -126,12 +126,12 @@ const AnalysisDisplay = ({ analysis }) => {
     >
       <div className="flex justify-between items-center mb-3 sm:mb-4 pb-2 border-b border-gray-200">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-800 flex items-center">
-          <Info className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2 flex-shrink-0 text-blue-600" />
+          <Info className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2 flex-shrink-0 text-[var(--theme-color-1)]" />
           <span className="truncate">Expert Analysis</span>
         </h2>
         <button 
           onClick={() => setExpanded(!expanded)} 
-          className="text-gray-500 hover:text-blue-600 transition-colors p-1 rounded-full hover:bg-gray-100 flex-shrink-0"
+          className="text-gray-500 hover:text-[var(--theme-color-1)] transition-colors p-1 rounded-full hover:bg-gray-100 flex-shrink-0"
           aria-label={expanded ? "Collapse analysis" : "Expand analysis"}
         >
           {expanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}

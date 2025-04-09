@@ -203,7 +203,7 @@ export const updateAppointmentStatus = async (req, res) => {
       to: appointment.userId.email,
       subject: `Viewing Appointment ${
         status.charAt(0).toUpperCase() + status.slice(1)
-      } - BuildEstate`,
+      } - Hybrid Realty`,
       html: getEmailTemplate(appointment, status),
     };
 
@@ -219,6 +219,164 @@ export const updateAppointmentStatus = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error updating appointment",
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select('-password');
+    
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching users'
+    });
+  }
+};
+
+// Get user by ID
+export const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    
+    const user = await User.findById(userId).select('-password');
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching user details'
+    });
+  }
+};
+
+// Get user's wishlist properties
+export const getUserWishlist = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    if (!user.wishlist || user.wishlist.length === 0) {
+      return res.json([]);
+    }
+    
+    const properties = await Property.find({
+      _id: { $in: user.wishlist }
+    });
+    
+    res.json(properties);
+  } catch (error) {
+    console.error('Error fetching wishlist:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching wishlist'
+    });
+  }
+};
+
+// Remove property from user's wishlist
+export const removeUserWishlist = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const propertyId = req.params.propertyId;
+    
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    // Check if property is in wishlist
+    const propertyIndex = user.wishlist.indexOf(propertyId);
+    
+    if (propertyIndex === -1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Property not in wishlist'
+      });
+    }
+    
+    // Remove property from wishlist
+    user.wishlist.splice(propertyIndex, 1);
+    await user.save();
+    
+    res.json({
+      success: true,
+      message: 'Property removed from wishlist'
+    });
+  } catch (error) {
+    console.error('Error removing from wishlist:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error removing property from wishlist'
+    });
+  }
+};
+
+// Delete user
+export const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    await User.findByIdAndDelete(userId);
+    
+    res.json({
+      success: true,
+      message: 'User deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting user'
     });
   }
 };

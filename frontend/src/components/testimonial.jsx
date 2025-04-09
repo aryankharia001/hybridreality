@@ -15,7 +15,7 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
     >
       {/* Quote icon */}
       <div className="absolute top-4 right-4 opacity-10">
-        <Quote className="w-12 h-12 text-blue-500" />
+        <Quote className="w-12 h-12 text-[var(--theme-hover-color-1)]" />
       </div>
 
       {/* Testimonial content */}
@@ -36,7 +36,7 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="absolute -bottom-2 -right-2 bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md"
+            className="absolute -bottom-2 -right-2 bg-[var(--theme-color-1)] text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md"
           >
             <Quote className="w-3 h-3" />
           </motion.div>
@@ -46,7 +46,7 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
           {/* Client info */}
           <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
           <p className="text-sm text-gray-600 flex items-center">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--theme-color-1)] mr-2"></span>
             {testimonial.location}
           </p>
           
@@ -68,7 +68,7 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
           <div
             key={i}
             className={`w-2 h-2 rounded-full ${
-              i === index ? 'bg-blue-600 w-6 transition-all duration-300' : 'bg-gray-300'
+              i === index ? 'bg-[var(--theme-color-1)] w-6 transition-all duration-300' : 'bg-gray-300'
             }`}
           />
         ))}
@@ -116,11 +116,11 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="text-blue-600 font-semibold tracking-wider text-sm uppercase">Testimonials</span>
+          <span className="text-[var(--theme-color-1)] font-semibold tracking-wider text-sm uppercase">Testimonials</span>
           <h2 className="text-4xl font-bold text-gray-900 mt-2 mb-4">What Our Clients Say</h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
+          <div className="w-24 h-1 bg-[var(--theme-color-1)] mx-auto mb-6 rounded-full"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover why homeowners trust BuildEstate to find their perfect property
+            Discover why homeowners trust Hybrid Realty to find their perfect property
           </p>
         </motion.div>
 
@@ -138,7 +138,7 @@ const Testimonials = () => {
                 className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 relative"
               >
                 <div className="absolute top-4 right-4 opacity-10">
-                  <Quote className="w-12 h-12 text-blue-500" />
+                  <Quote className="w-12 h-12 text-[var(--theme-hover-color-1)]" />
                 </div>
 
                 <p className="text-gray-700 italic mb-6 text-lg leading-relaxed relative z-10">
@@ -152,7 +152,7 @@ const Testimonials = () => {
                       alt={testimonial.name}
                       className="w-16 h-16 rounded-full object-cover border-2 border-blue-100"
                     />
-                    <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md">
+                    <div className="absolute -bottom-2 -right-2 bg-[var(--theme-color-1)] text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md">
                       <Quote className="w-3 h-3" />
                     </div>
                   </div>
@@ -160,7 +160,7 @@ const Testimonials = () => {
                   <div className="ml-4">
                     <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
                     <p className="text-sm text-gray-600 flex items-center">
-                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--theme-color-1)] mr-2"></span>
                       {testimonial.location}
                     </p>
                     
@@ -196,14 +196,14 @@ const Testimonials = () => {
           <div className="flex justify-center mt-10 space-x-4">
             <button
               onClick={handlePrev}
-              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
+              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[var(--theme-color-1)] hover:text-white transition-colors"
               aria-label="Previous testimonial"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
+              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[var(--theme-color-1)] hover:text-white transition-colors"
               aria-label="Next testimonial"
             >
               <ArrowRight className="w-5 h-5" />
@@ -221,7 +221,7 @@ const Testimonials = () => {
         >
           <a 
             href="/contact" 
-            className="inline-flex items-center bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
+            className="inline-flex items-center bg-[var(--theme-color-1)] text-white py-3 px-6 rounded-lg font-medium hover:bg-[var(--theme-hover-color-1)] transition-colors shadow-lg shadow-[var(--theme-color-1)]/20"
           >
             Share Your Experience
             <ArrowRight className="ml-2 w-4 h-4" />

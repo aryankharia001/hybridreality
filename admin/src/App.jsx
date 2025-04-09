@@ -16,9 +16,13 @@ import Update from "./pages/Update";
 import Appointments from "./pages/Appointments";
 import ApproveProperty from "./pages/ApproveProperty";
 import PropertyDetails from "./pages/PropertyDetails";
+import UserListPage from "./pages/UserListPage"; 
+import UserDetailPage from "./pages/UserDetailPage";
+import AdminLuckyDrawManagement from "./pages/AdminLuckyDrawManagement"; // Import Lucky Draw Management
+import LuckyDrawPropertyDetails from "./pages/LuckyDrawPropertyDetails"; // Import Lucky Draw Property Details
 
 // Config
-export const backendurl = import.meta.env.VITE_BACKEND_URL;
+export const backendurl = '';
 
 // Page transition variants
 const pageVariants = {
@@ -47,7 +51,7 @@ const App = () => {
               {/* Public Routes */}
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
+              
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
@@ -56,17 +60,25 @@ const App = () => {
                 <Route path="/property/:id" element={<PropertyDetails />} />
                 <Route path="/update/:id" element={<Update />} />
                 <Route path="/appointments" element={<Appointments />} />
+                
+                {/* New User Management Routes */}
+                <Route path="/admin/users" element={<UserListPage />} />
+                <Route path="/admin/users/:userId" element={<UserDetailPage />} />
+                
+                {/* Lucky Draw Management Routes */}
+                <Route path="/admin/lucky-draw" element={<AdminLuckyDrawManagement />} />
+                <Route path="/admin/lucky-draw/:id" element={<LuckyDrawPropertyDetails />} />
               </Route>
-
+              
               {/* 404 Route */}
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
           </motion.div>
         </AnimatePresence>
-
+        
         {/* Toast Notifications */}
-        <Toaster 
-          position="top-right"
+        <Toaster
+           position="top-right"
           toastOptions={{
             duration: 3000,
             style: {

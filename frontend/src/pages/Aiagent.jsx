@@ -40,7 +40,7 @@ const AIPropertyHub = () => {
     setIsDeployedVersion(isDeployed);
 
     document.title =
-      "AI Property Hub | BuildEstate - Real Estate Market Analysis";
+      "AI Property Hub | Hybrid Realty - Real Estate Market Analysis";
   }, []);
 
   // Timer for loading state
@@ -127,7 +127,7 @@ const AIPropertyHub = () => {
         {/* Loading animation with property icon - adjusted for better mobile view */}
         <div className="relative mb-8 sm:mb-12 pt-12 sm:pt-16">
           {/* Main circle - smaller on mobile */}
-          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center relative shadow-lg shadow-blue-500/30">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-r from-[var(--theme-hover-color-1)] to-[var(--theme-hover-color-1)] flex items-center justify-center relative shadow-lg shadow-[var(--theme-hover-color-1)]/30">
             {loadingStage === "properties" ? (
               <Building className="w-10 h-10 sm:w-12 sm:h-12 text-white animate-pulse" />
             ) : (
@@ -136,12 +136,12 @@ const AIPropertyHub = () => {
           </div>
 
           {/* Responsive pulse circle */}
-          <div className="absolute bottom-0 top-10 -right-4 sm:-right-6 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-blue-500 opacity-30 pulse-animation"></div>
+          <div className="absolute bottom-0 top-10 -right-4 sm:-right-6 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-[var(--theme-hover-color-1)] opacity-30 pulse-animation"></div>
 
           {/* Responsive orbiting dots */}
           <div className="absolute top-12 sm:top-16 left-1/2 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-white shadow-md shadow-blue-300 orbit-animation"></div>
           <div className="absolute top-1/2 right-0 w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-blue-200 orbit-animation-reverse"></div>
-          <div className="absolute bottom-0 left-1/2 w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-indigo-200 orbit-animation-slow"></div>
+          <div className="absolute bottom-0 left-1/2 w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg--200 orbit-animation-slow"></div>
         </div>
 
         {/* Custom animations */}
@@ -236,7 +236,7 @@ const AIPropertyHub = () => {
         `}</style>
 
         <div className="text-center mb-6 max-w-lg px-4">
-          <h3 className="text-xl sm:text-2xl font-medium text-gray-800 mb-3 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h3 className="text-xl sm:text-2xl font-medium text-gray-800 mb-3 bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] bg-clip-text text-transparent">
             {loadingStage === "properties"
               ? "Finding Ideal Properties"
               : "Analyzing Market Trends"}
@@ -249,7 +249,7 @@ const AIPropertyHub = () => {
         {/* Responsive progress bar */}
         <div className="w-full max-w-xs sm:max-w-md h-2 sm:h-2.5 bg-gray-200 rounded-full overflow-hidden mb-6 shadow-inner px-4 sm:px-0">
           <div
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-300 rounded-full"
+            className="h-full bg-gradient-to-r from-[var(--theme-hover-color-1)] to-[var(--theme-hover-color-1)] transition-all duration-300 rounded-full"
             style={{ width: getProgressWidth() }}
           ></div>
         </div>
@@ -259,9 +259,9 @@ const AIPropertyHub = () => {
           <div className="flex items-center mb-3">
             <div className="mr-3">
               {loadingTime < 15 ? (
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--theme-color-1)]" />
               ) : (
-                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--theme-color-1)]" />
               )}
             </div>
             <h4 className="font-medium text-blue-800 text-sm sm:text-base">
@@ -269,7 +269,7 @@ const AIPropertyHub = () => {
             </h4>
           </div>
 
-          <p className="text-blue-700 text-xs sm:text-sm">
+          <p className="text-[var(--theme-hover-color-1)] text-xs sm:text-sm">
             {loadingTime < 20
               ? "Our AI is searching for properties that match your exact requirements and analyzing local market data."
               : "We're using advanced algorithms to evaluate property quality, value for money, and investment potential."}
@@ -278,8 +278,8 @@ const AIPropertyHub = () => {
           {loadingTime > 15 && (
             <div className="mt-3 pt-3 border-t border-blue-100">
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full animate-pulse"></div>
-                <p className="text-xs text-blue-600 font-medium">
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[var(--theme-color-1)] rounded-full animate-pulse"></div>
+                <p className="text-xs text-[var(--theme-color-1)] font-medium">
                   Deep analysis takes time for quality insights
                 </p>
               </div>
@@ -296,7 +296,7 @@ const AIPropertyHub = () => {
       <StructuredData type="aiHub" />
       <div className="container mx-auto px-4">
         {/* Hero section with gradient background - responsive padding */}
-        <div className="mb-8 sm:mb-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-lg sm:shadow-xl">
+        <div className="mb-8 sm:mb-12 bg-gradient-to-r from-[var(--theme-color-1)] to--700 rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-lg sm:shadow-xl">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">
               AI Property Hub | Real Estate Analysis Tool
@@ -332,7 +332,7 @@ const AIPropertyHub = () => {
                       </a>
                       <a
                         href="https://github.com/AAYUSH412/Real-Estate-Website/archive/refs/heads/main.zip"
-                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[var(--theme-color-1)] hover:bg-[var(--theme-hover-color-1)] text-white rounded-lg transition-colors"
                       >
                         <Download className="w-4 h-4" />
                         <span>Download Repository</span>
@@ -366,7 +366,7 @@ const AIPropertyHub = () => {
               {/* Property Results Section */}
               <div className="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 md:p-8">
                 <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center">
-                  <Building className="mr-2 text-blue-600 flex-shrink-0" />
+                  <Building className="mr-2 text-[var(--theme-color-1)] flex-shrink-0" />
                   <span className="break-words">Property Results</span>
                 </h2>
 
@@ -395,7 +395,7 @@ const AIPropertyHub = () => {
               {/* Location Trends Section */}
               <div className="bg-white rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 md:p-8">
                 <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center">
-                  <TrendingUp className="mr-2 text-blue-600 flex-shrink-0" />
+                  <TrendingUp className="mr-2 text-[var(--theme-color-1)] flex-shrink-0" />
                   <span className="break-words">Location Insights</span>
                 </h2>
                 <LocationTrends locations={locations} />
@@ -413,7 +413,7 @@ const AIPropertyHub = () => {
             <div className="bg-white p-5 sm:p-8 rounded-lg sm:rounded-xl shadow-md max-w-4xl mx-auto text-center">
               <div className="mb-5 sm:mb-6">
                 <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-full flex items-center justify-center mb-3 sm:mb-4">
-                  <Brain className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" />
+                  <Brain className="w-7 h-7 sm:w-8 sm:h-8 text-[var(--theme-color-1)]" />
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
                   Welcome to AI Property Hub
@@ -461,7 +461,7 @@ const AIPropertyHub = () => {
 
 const FeatureCard = ({ icon, title, description }) => (
   <div className="bg-gray-50 p-4 sm:p-5 rounded-lg border border-gray-100">
-    <div className="text-blue-600 mb-2 sm:mb-3">{icon}</div>
+    <div className="text-[var(--theme-color-1)] mb-2 sm:mb-3">{icon}</div>
     <h3 className="font-semibold text-gray-800 mb-1.5 sm:mb-2 text-sm sm:text-base">
       {title}
     </h3>

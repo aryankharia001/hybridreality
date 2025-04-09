@@ -7,19 +7,19 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    content: '+1 (234) 567-890',
+    content: '9999999999',
     link: 'tel:+1234567890',
   },
   {
     icon: Mail,
     title: 'Email',
-    content: 'support@buildestate.com',
-    link: 'mailto:support@buildestate.com',
+    content: 'aryankharia01@gmail.com',
+    link: 'mailto:aryankharia01@gmail.com',
   },
   {
     icon: MapPin,
     title: 'Address',
-    content: '123 Main Street, City, Country',
+    content: 'ABC',
     link: '#map',
   },
   {

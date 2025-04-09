@@ -16,8 +16,10 @@ import {
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { backendurl } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Appointments = () => {
+  const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
@@ -49,7 +51,10 @@ const Appointments = () => {
     }
   };
 
-  const handleStatusChange = async (appointmentId, newStatus) => {
+  const handleStatusChange = async (appointmentId, newStatus, e) => {
+    // Stop event propagation to prevent navigation when clicking action buttons
+    e.stopPropagation();
+    
     try {
       const response = await axios.put(
         `${backendurl}/api/appointments/status`,
@@ -74,7 +79,10 @@ const Appointments = () => {
     }
   };
 
-  const handleMeetingLinkUpdate = async (appointmentId) => {
+  const handleMeetingLinkUpdate = async (appointmentId, e) => {
+    // Stop event propagation to prevent navigation when clicking meeting link buttons
+    e.stopPropagation();
+    
     try {
       if (!meetingLink) {
         toast.error("Please enter a meeting link");
@@ -104,6 +112,27 @@ const Appointments = () => {
       console.error("Error updating meeting link:", error);
       toast.error("Failed to update meeting link");
     }
+  };
+
+  const handleEditMeetingLink = (appointmentId, currentLink, e) => {
+    // Stop event propagation to prevent navigation
+    e.stopPropagation();
+    setEditingMeetingLink(appointmentId);
+    setMeetingLink(currentLink || "");
+  };
+
+  const handleCancelEdit = (e) => {
+    // Stop event propagation to prevent navigation
+    e.stopPropagation();
+    setEditingMeetingLink(null);
+    setMeetingLink("");
+  };
+
+  const handleLinkClick = (url, e) => {
+    // Stop event propagation to prevent navigation to property details
+    // when clicking on meeting link
+    e.stopPropagation();
+    window.open(url, '_blank');
   };
 
   useEffect(() => {
@@ -146,7 +175,7 @@ const Appointments = () => {
   return (
     <div className="min-h-screen pt-32 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        {/* Header and Search Section - Keep existing code */}
+        {/* Header and Search Section */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-1">
@@ -216,12 +245,14 @@ const Appointments = () => {
                     key={appointment._id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="hover:bg-gray-50"
+                    className="hover:bg-gray-50 cursor-pointer"
+                    onClick={() => navigate(`/property/${appointment.propertyId._id}`)}
                   >
                     {/* Property Details */}
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         <Home className="w-5 h-5 text-gray-400 mr-2" />
+
                         <div>
                           <p className="font-medium text-gray-900">
                             {appointment.propertyId.title}
@@ -279,7 +310,7 @@ const Appointments = () => {
                     {/* Meeting Link */}
                     <td className="px-6 py-4">
                       {editingMeetingLink === appointment._id ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                           <input
                             type="url"
                             value={meetingLink}
@@ -288,18 +319,13 @@ const Appointments = () => {
                             className="px-2 py-1 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm w-full"
                           />
                           <button
-                            onClick={() =>
-                              handleMeetingLinkUpdate(appointment._id)
-                            }
+                            onClick={(e) => handleMeetingLinkUpdate(appointment._id, e)}
                             className="p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                           >
                             <Send className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => {
-                              setEditingMeetingLink(null);
-                              setMeetingLink("");
-                            }}
+                            onClick={handleCancelEdit}
                             className="p-1 bg-gray-500 text-white rounded hover:bg-gray-600"
                           >
                             <X className="w-4 h-4" />
@@ -310,8 +336,7 @@ const Appointments = () => {
                           {appointment.meetingLink ? (
                             <a
                               href={appointment.meetingLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              onClick={(e) => handleLinkClick(appointment.meetingLink, e)}
                               className="text-blue-600 hover:text-blue-800 underline flex items-center gap-1"
                             >
                               <LinkIcon className="w-4 h-4" />
@@ -322,10 +347,7 @@ const Appointments = () => {
                           )}
                           {appointment.status === "confirmed" && (
                             <button
-                              onClick={() => {
-                                setEditingMeetingLink(appointment._id);
-                                setMeetingLink(appointment.meetingLink || "");
-                              }}
+                              onClick={(e) => handleEditMeetingLink(appointment._id, appointment.meetingLink, e)}
                               className="ml-2 text-gray-400 hover:text-gray-600"
                             >
                               <LinkIcon className="w-4 h-4" />
@@ -340,17 +362,13 @@ const Appointments = () => {
                       {appointment.status === "pending" && (
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() =>
-                              handleStatusChange(appointment._id, "confirmed")
-                            }
+                            onClick={(e) => handleStatusChange(appointment._id, "confirmed", e)}
                             className="p-1 bg-green-500 text-white rounded hover:bg-green-600"
                           >
                             <Check className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() =>
-                              handleStatusChange(appointment._id, "cancelled")
-                            }
+                            onClick={(e) => handleStatusChange(appointment._id, "cancelled", e)}
                             className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
                           >
                             <X className="w-4 h-4" />

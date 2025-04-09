@@ -6,17 +6,19 @@ import Properties from '../components/propertiesshow'
 import Steps from '../components/Steps'
 import Testimonials from '../components/testimonial'
 import Blog from '../components/Blog'
+import FeaturedInvestedProperties from '../components/properties/FeaturedInvestedProperties'
 
 const Home = () => {
   return (
     <div>
       <Hero />
       <Companies />
-      <Features />
       <Properties />
+      {/* <Features /> */}
+      <FeaturedInvestedProperties />
       <Steps />
-      <Testimonials />
-      <Blog />
+      {/* <Testimonials /> */}
+      {/* <Blog /> */}
     </div>
   )
 }

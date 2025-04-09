@@ -1,8 +1,9 @@
-import { Home, IndianRupee, Filter } from "lucide-react";
+import { Home, IndianRupee, Filter, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 
-const propertyTypes = ["House", "Apartment", "Villa", "Office"];
-const availabilityTypes = ["Rent", "Buy", "Lease"];
+const propertyTypes = ['House', 'Apartment', 'Farmhouse', 'Villa', 'Commercial Properties', 'Shops', 'Office', 'Plots/Lands'];
+const availabilityTypes = ["Sell", "Rent"];
+const investmentOptions = ["Yes", "No"];
 const priceRanges = [
   { min: 0, max: 5000000, label: "Under ₹50L" },
   { min: 5000000, max: 10000000, label: "₹50L - ₹1Cr" },
@@ -33,6 +34,7 @@ const FilterSection = ({ filters, setFilters, onApplyFilters }) => {
       bedrooms: "0",
       bathrooms: "0",
       availability: "",
+      investment: "",
       searchQuery: "",
       sortBy: ""
     });
@@ -48,12 +50,12 @@ const FilterSection = ({ filters, setFilters, onApplyFilters }) => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center space-x-2">
-          <Filter className="w-5 h-5 text-blue-600" />
+          <Filter className="w-5 h-5 text-[var(--theme-color-1)]" />
           <h2 className="text-lg font-semibold">Filters</h2>
         </div>
         <button
           onClick={handleReset}
-          className="text-sm text-blue-600 hover:text-blue-700"
+          className="text-sm text-[var(--theme-color-1)] hover:text-[var(--theme-hover-color-1)]"
         >
           Reset All
         </button>
@@ -75,10 +77,57 @@ const FilterSection = ({ filters, setFilters, onApplyFilters }) => {
                 })}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all
                   ${filters.propertyType === type.toLowerCase()
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[var(--theme-color-1)] text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
               >
                 {type}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Availability Filter */}
+        <div className="filter-group">
+          <label className="filter-label">
+            Availability
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {availabilityTypes.map((type) => (
+              <button
+                key={type}
+                onClick={() => handleChange({
+                  target: { name: "availability", value: type.toLowerCase() }
+                })}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all
+                  ${filters.availability === type.toLowerCase()
+                    ? "bg-[var(--theme-color-1)] text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Investment Filter */}
+        <div className="filter-group">
+          <label className="filter-label">
+            <TrendingUp className="w-4 h-4 mr-2" />
+            Investment Properties
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {investmentOptions.map((option) => (
+              <button
+                key={option}
+                onClick={() => handleChange({
+                  target: { name: "investment", value: option.toLowerCase() }
+                })}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all
+                  ${filters.investment === option.toLowerCase()
+                    ? "bg-amber-500 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+              >
+                {option}
               </button>
             ))}
           </div>
@@ -97,7 +146,7 @@ const FilterSection = ({ filters, setFilters, onApplyFilters }) => {
                 onClick={() => handlePriceRangeChange(min, max)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all
                   ${filters.priceRange[0] === min && filters.priceRange[1] === max
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[var(--theme-color-1)] text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
               >
                 {label}
@@ -106,13 +155,10 @@ const FilterSection = ({ filters, setFilters, onApplyFilters }) => {
           </div>
         </div>
 
-        {/* Rest of your existing filter groups */}
-        {/* ... */}
-
         <div className="flex space-x-4 mt-8">
           <button
             onClick={() => onApplyFilters(filters)}
-            className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
+            className="flex-1 bg-[var(--theme-color-1)] text-white py-3 rounded-lg hover:bg-[var(--theme-hover-color-1)] 
               transition-colors font-medium"
           >
             Apply Filters

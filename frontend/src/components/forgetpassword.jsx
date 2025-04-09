@@ -29,7 +29,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to--50 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -40,8 +40,8 @@ const ForgotPassword = () => {
           {/* Logo & Title */}
           <div className="text-center mb-8">
             <Link to="/" className="inline-block mb-6">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                BuildEstate
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] bg-clip-text text-transparent">
+                Hybrid Realty
               </h2>
             </Link>
             <h2 className="text-2xl font-semibold text-gray-800">Forgot Password?</h2>
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[var(--theme-hover-color-1)] focus:ring-2 focus:ring-[var(--theme-hover-color-1)]/20 transition-all duration-200"
                   placeholder="Enter your email"
                 />
               </div>
@@ -71,7 +71,7 @@ const ForgotPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg shadow-blue-500/25"
+              className="w-full bg-gradient-to-r from-[var(--theme-color-1)] to-[var(--theme-hover-color-1)] text-white py-3 rounded-lg hover:from-[var(--theme-hover-color-1)] hover:to--700 transition-all duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg shadow-[var(--theme-hover-color-1)]/25"
             >
               {loading ? (
                 <Loader className="w-5 h-5 animate-spin" />

@@ -13,7 +13,7 @@ export default function MissionVision() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-4">Our Purpose</h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
+          <div className="w-24 h-1 bg-[var(--theme-color-1)] mx-auto"></div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -24,7 +24,7 @@ export default function MissionVision() {
             className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             <div className="flex items-center mb-6">
-              <Target className="w-8 h-8 text-blue-600 mr-3" />
+              <Target className="w-8 h-8 text-[var(--theme-color-1)] mr-3" />
               <h2 className="text-2xl font-bold">Our Mission</h2>
             </div>
             <p className="text-gray-600 leading-relaxed">
@@ -41,7 +41,7 @@ export default function MissionVision() {
             className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             <div className="flex items-center mb-6">
-              <Eye className="w-8 h-8 text-blue-600 mr-3" />
+              <Eye className="w-8 h-8 text-[var(--theme-color-1)] mr-3" />
               <h2 className="text-2xl font-bold">Our Vision</h2>
             </div>
             <p className="text-gray-600 leading-relaxed">

@@ -4,7 +4,7 @@ import Property from "../models/propertymodel.js";
 
 const addproperty = async (req, res) => {
     try {
-        const { title, location, price, beds, baths, sqft, type, availability, description, amenities,phone } = req.body;
+        const { title, location, price, beds, baths, sqft, type, availability, description, amenities,phone, invest} = req.body;
 
         const image1 = req.files.image1 && req.files.image1[0];
         const image2 = req.files.image2 && req.files.image2[0];
@@ -19,7 +19,7 @@ const addproperty = async (req, res) => {
                 const result = await imagekit.upload({
                     file: fs.readFileSync(item.path),
                     fileName: item.originalname,
-                    folder: "Property",
+                    folder: "uploads",
                 });
                 fs.unlink(item.path, (err) => {
                     if (err) console.log("Error deleting the file: ", err);
@@ -41,7 +41,8 @@ const addproperty = async (req, res) => {
             description,
             amenities,
             image: imageUrls,
-            phone
+            phone,
+            invest,
         });
 
         // Save the product to the database
@@ -104,6 +105,7 @@ const updateproperty = async (req, res) => {
             property.description = description;
             property.amenities = amenities;
             property.phone = phone;
+            property.invest = invest;
             // Keep existing images
             await property.save();
             return res.json({ message: "Property updated successfully", success: true });
@@ -143,6 +145,7 @@ const updateproperty = async (req, res) => {
         property.amenities = amenities;
         property.image = imageUrls;
         property.phone = phone;
+        property.invest = invest;
 
         await property.save();
         res.json({ message: "Property updated successfully", success: true });

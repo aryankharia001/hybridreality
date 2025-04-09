@@ -7,9 +7,6 @@ const router = express.Router();
 router.get("/admin/approved", async (req, res) => {
   try {
     const properties = await Property.find(); // Only fetch approved properties
-
-    console.log(properties);
-
     
     res.json({ success: true, properties });
   } catch (error) {
@@ -22,10 +19,6 @@ router.get("/admin/approved", async (req, res) => {
 router.put("/admin/approved/:id", async (req, res) => {
   try {
     const { isApproved } = req.body; // Accept "approved" or "rejected"
-
-    // if (!["approved", "rejected"].includes(is)) {
-    //   return res.status(400).json({ success: false, message: "Invalid status" });
-    // }
 
     const property = await Property.findByIdAndUpdate(
       req.params.id,
